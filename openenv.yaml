@@ -1,0 +1,75 @@
+name: scam-detection-env
+version: 1.0.0
+description: AI Scam & Impersonation Detection Environment - Multi-step content moderation task
+
+environment:
+  type: openenv
+  class: environment.ScamDetectionEnv
+
+observation_space:
+  type: dict
+  properties:
+    step_type:
+      type: string
+      enum: [classify, decide, reason]
+    content:
+      type: string
+    previous_classification:
+      type: string
+      nullable: true
+    previous_decision:
+      type: string
+      nullable: true
+    message:
+      type: string
+
+action_space:
+  type: string
+  format: function_call
+  examples:
+    - "classify('scam')"
+    - "classify('impersonation')"
+    - "classify('safe')"
+    - "decide('allow')"
+    - "decide('remove')"
+    - "decide('flag')"
+    - "decide('escalate')"
+    - "reason('This is a phishing attempt')"
+
+reward_range:
+  min: -0.2
+  max: 1.0
+
+tasks:
+  - name: easy_scam
+    difficulty: easy
+    description: Obvious phishing scam message
+    expected_steps: 3
+
+  - name: medium_impersonation
+    difficulty: medium
+    description: Celebrity impersonation cryptocurrency scam
+    expected_steps: 3
+
+  - name: hard_subtle_phishing
+    difficulty: hard
+    description: Subtle phishing attempt with professional tone
+    expected_steps: 3
+
+grading:
+  type: deterministic
+  scoring:
+    classification: 0.3
+    decision: 0.4
+    reasoning: 0.3
+  total_range: [0.0, 1.0]
+
+metadata:
+  author: Hackathon Participant
+  created: 2026-03-29
+  license: MIT
+  tags:
+    - content-moderation
+    - scam-detection
+    - multi-step
+    - classification
