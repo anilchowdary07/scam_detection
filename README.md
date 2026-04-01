@@ -618,4 +618,3 @@ For understanding the environment:
 
 ---
 
-**Built with ❤️ for safer online communities**
