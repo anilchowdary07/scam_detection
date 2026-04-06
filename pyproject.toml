@@ -6,20 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "scam-detection-env"
 version = "1.0.0"
 description = "OpenEnv environment for AI scam and impersonation detection"
-readme = "README.md"
 requires-python = ">=3.11"
-authors = [
-    { name = "OpenEnv Hackathon Team" }
-]
-keywords = ["openenv", "environment", "reinforcement-learning", "content-moderation", "scam-detection"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-]
-
 dependencies = [
     "pydantic>=2.6.1",
     "openai>=1.12.0",
@@ -28,10 +15,3 @@ dependencies = [
     "uvicorn>=0.27.1",
     "gradio>=4.27.0",
 ]
-
-[project.urls]
-Homepage = "https://huggingface.co/spaces/anil988/scam-detection-env"
-Repository = "https://github.com/anilchowdary07/scam_detection"
-
-[tool.setuptools]
-packages = ["scam_detection_env"]
