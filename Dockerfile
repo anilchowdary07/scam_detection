@@ -17,8 +17,8 @@ ENV MODEL_NAME=gpt-3.5-turbo
 ENV OPENAI_API_KEY=""
 ENV HF_TOKEN=""
 
-# Expose port for FastAPI
+# Expose port for Gradio UI
 EXPOSE 7860
 
-# Run FastAPI server for HF Space
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+# Run Gradio interface server
+CMD ["python", "app.py"]

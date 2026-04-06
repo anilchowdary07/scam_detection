@@ -1,3 +1,13 @@
+---
+title: Scam Detection OpenEnv
+emoji: 🛡️
+colorFrom: red
+colorTo: yellow
+sdk: docker
+pinned: false
+license: mit
+---
+
 # Scam Detection OpenEnv Environment
 
 **Real-world Content Moderation for AI Agents**
