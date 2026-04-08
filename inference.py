@@ -140,9 +140,11 @@ def run_task(task, agent: LLMAgent, task_name: str, env_name: str, model_name: s
         action_clean = action.replace('\n', ' ').replace('\r', '')
         print(f"[STEP] step={step_count} action={repr(action_clean)} reward={reward:.2f} done={done_str} error={error_str}")
     
-    # Calculate final score (normalize total_reward to [0, 1])
-    # Assuming max possible reward is 1.0 per task
-    score = min(1.0, max(0.0, total_reward))
+    # Calculate final score and enforce strict validator bounds: (0, 1)
+    # Hackathon validator rejects exactly 0.00 and 1.00.
+    raw_score = min(1.0, max(0.0, total_reward))
+    epsilon = 0.01
+    score = min(1.0 - epsilon, max(epsilon, raw_score))
     
     # Print [END] line
     success_str = "true" if done and total_reward > 0 else "false"
