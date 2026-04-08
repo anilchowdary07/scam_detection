@@ -157,8 +157,8 @@ def main():
     # Read environment variables
     api_base_url = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
     model_name = os.getenv("MODEL_NAME", "gpt-3.5-turbo")
-    hf_token = os.getenv("HF_TOKEN", "")
-    api_key = os.getenv("OPENAI_API_KEY", hf_token)
+    # Phase-2 validator injects API_KEY/API_BASE_URL through its LiteLLM proxy.
+    api_key = os.getenv("API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("HF_TOKEN", "")
     
     if not api_key:
         print("Warning: No API key found. Using deterministic fallback actions.", file=sys.stderr)
