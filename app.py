@@ -84,7 +84,7 @@ async def api_reset(task_index: int = 0):
     
     current_env = ScamDetectionEnv(tasks[task_index])
     current_task_index = task_index
-    observation, _ = current_env.reset()
+    observation = current_env.reset()  # reset() returns just Observation, not a tuple
     
     current_state["task_index"] = task_index
     current_state["observation"] = observation
