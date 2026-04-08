@@ -2,6 +2,11 @@
 OpenEnv-compliant FastAPI + Gradio Server
 Supports both /reset, /step, /state API endpoints AND Gradio UI
 """
+import sys
+import os
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import gradio as gr
 from fastapi import FastAPI
 from typing import Optional, Dict, Any
@@ -84,7 +89,7 @@ async def api_reset(task_index: int = 0):
     
     current_env = ScamDetectionEnv(tasks[task_index])
     current_task_index = task_index
-    observation = current_env.reset()  # reset() returns just Observation, not a tuple
+    observation = current_env.reset()
     
     current_state["task_index"] = task_index
     current_state["observation"] = observation
@@ -162,7 +167,6 @@ async def api_tasks():
         ]
     }
 
-
 # ========================
 # Gradio Functions (for UI)
 # ========================
@@ -178,7 +182,7 @@ def reset_env_ui(task_index: int):
 
         current_env = ScamDetectionEnv(tasks[task_index])
         current_task_index = task_index
-        observation, _ = current_env.reset()
+        observation = current_env.reset()
 
         current_state["task_index"] = task_index
         current_state["observation"] = observation
@@ -332,22 +336,6 @@ def create_gradio_demo():
 # Application Entry Point
 # ========================
 
-if __name__ == "__main__":
-    import uvicorn
-    
-    print("🚀 Starting Scam Detection OpenEnv...")
-    print("📍 FastAPI endpoints: http://0.0.0.0:7860")
-    print("📍 Gradio UI will be available at: http://0.0.0.0:7860")
-    
-    # Create Gradio interface
-    demo = create_gradio_demo()
-    
-    # Mount Gradio on FastAPI
-    app = gr.mount_gradio_app(app, demo, path="/")
-    
-    # Run server
-    uvicorn.run(app, host="0.0.0.0", port=7860)
-
 def main():
     """Main entry point for the server"""
     import uvicorn
@@ -365,3 +353,7 @@ def main():
     
     # Run server
     uvicorn.run(app, host="0.0.0.0", port=7860)
+
+
+if __name__ == "__main__":
+    main()
