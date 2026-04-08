@@ -20,5 +20,6 @@ ENV HF_TOKEN=""
 # Expose port for Gradio UI
 EXPOSE 7860
 
-# Run Gradio interface server
-CMD ["python", "app.py"]
+# Run server using the entry point defined in pyproject.toml
+# This will call server.app:main()
+CMD ["python", "-m", "server.app"]
